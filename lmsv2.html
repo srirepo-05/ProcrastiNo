@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProcrastiNO - Process Planning Software</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@1.2.0/dist/chartjs-chart-matrix.min.js"></script>
+  
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">
+        <div>Procrasti<span>No</span></div>
+      </div>
+      <ul class="nav-menu">
+        <li class="nav-item active">
+          <div class="nav-icon">📊</div>
+          <div class="nav-text">Dashboard</div>
+        </li>
+        <li class="nav-item">
+          <div class="nav-icon">💬</div>
+          <div class="nav-text">Chat</div>
+        </li>
+        <li class="nav-item">
+          <div class="nav-icon">📝</div>
+          <div class="nav-text">Tasks</div>
+        </li>
+        <li class="nav-item">
+          <div class="nav-icon">🔔</div>
+          <div class="nav-text">Notifications</div>
+        </li>
+        <li class="nav-item">
+          <div class="nav-icon">📅</div>
+          <div class="nav-text">Schedule</div>
+        </li>
+        <li class="nav-item">
+          <div class="nav-icon">⚙️</div>
+          <div class="nav-text">Settings</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="search-bar">
+        <input type="text" placeholder="Search for anything...">
+      </div>
+      <div class="user-profile">
+        <div class="notification-icon">
+          <div class="badge">3</div>
+        </div>
+        <div class="avatar">JD</div>
+        <div class="user-info">
+          <div class="name">Sriram M K</div>
+          <div class="role">Product Manager</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="tabs">
+        <div class="tab-list">
+          <div class="tab-item active" onclick="switchTab('dashboard-tab')">Dashboard</div>
+          <div class="tab-item" onclick="switchTab('tasks-tab')">Tasks</div>
+          <div class="tab-item" onclick="switchTab('chat-tab')">Chat</div>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard-tab" class="tab-content active">
+          <div class="performance-indicators">
+            <div class="indicator">
+              <div class="indicator-title">Total Tasks</div>
+              <div class="indicator-value">42</div>
+              <div class="indicator-trend trend-up">↑ 12% from last week</div>
+            </div>
+            <div class="indicator">
+              <div class="indicator-title">Completed</div>
+              <div class="indicator-value">28</div>
+              <div class="indicator-trend trend-up">↑ 18% from last week</div>
+            </div>
+            <div class="indicator">
+              <div class="indicator-title">In Progress</div>
+              <div class="indicator-value">10</div>
+              <div class="indicator-trend trend-down">↓ 5% from last week</div>
+            </div>
+            <div class="indicator">
+              <div class="indicator-title">Pending</div>
+              <div class="indicator-value">4</div>
+              <div class="indicator-trend trend-down">↓ 25% from last week</div>
+            </div>
+          </div>
+
+          <div class="dashboard">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Pending Work Tracker</div>
+                <div class="card-actions">⋮</div>
+              </div>
+              <div class="stats-wrapper">
+                <canvas id="pendingWorkChart"></canvas>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Performance Improvement</div>
+                <div class="card-actions">⋮</div>
+              </div>
+              <div class="stats-wrapper">
+                <canvas id="performanceChart"></canvas>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Completed Work Overview</div>
+                <div class="card-actions">⋮</div>
+              </div>
+              <div class="stats-wrapper">
+                <canvas id="completedWorkChart"></canvas>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Notifications Dashboard</div>
+                <div class="card-actions">⋮</div>
+              </div>
+              <div class="stats-wrapper">
+                <canvas id="notificationsChart"></canvas>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Workload Distribution</div>
+                <div class="card-actions">⋮</div>
+              </div>
+              <div class="stats-wrapper">
+                <canvas id="workloadChart"></canvas>
+              </div>
+            </div>
+            
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Project Success & Failure</div>
+                <div class="card-actions">⋮</div>
+              </div>
+              <div class="stats-wrapper">
+                <canvas id="projectSuccessChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tasks Tab -->
+        <div id="tasks-tab" class="tab-content">
+          <div class="task-management">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Active Tasks</div>
+                <div class="card-actions">⋮</div>
+              </div>
+              <div class="task-list">
+                <div class="task-item">
+                  <div class="task-info">
+                    <div class="task-title">Update dashboard design</div>
+                    <div class="task-details">
+                      <span>Due: Mar 31, 2025</span>
+                      <span class="task-badge badge-high">High Priority</span>
+                    </div>
+                  </div>
+                  <div class="task-actions">
+                    <button class="task-action-btn">✓</button>
+                    <button class="task-action-btn">✎</button>
+                    <button class="task-action-btn">⋮</button>
+                  </div>
+                </div>
+                <div class="task-item">
+                  <div class="task-info">
+                    <div class="task-title">Integrate API with front-end</div>
+                    <div class="task-details">
+                      <span>Due: Apr 2, 2025</span>
+                      <span class="task-badge badge-medium">Medium Priority</span>
+                    </div>
+                  </div>
+                  <div class="task-actions">
+                    <button class="task-action-btn">✓</button>
+                    <button class="task-action-btn">✎</button>
+                    <button class="task-action-btn">⋮</button>
+                  </div>
+                </div>
+                <div class="task-item">
+                  <div class="task-info">
+                    <div class="task-title">Write documentation for new features</div>
+                    <div class="task-details">
+                      <span>Due: Apr 5, 2025</span>
+                      <span class="task-badge badge-low">Low Priority</span>
+                    </div>
+                  </div>
+                  <div class="task-actions">
+                    <button class="task-action-btn">✓</button>
+                    <button class="task-action-btn">✎</button>
+                    <button class="task-action-btn">⋮</button>
+                  </div>
+                </div>
+                <div class="task-item">
+                  <div class="task-info">
+                    <div class="task-title">Review pull requests</div>
+                    <div class="task-details">
+                      <span>Due: Apr 1, 2025</span>
+                      <span class="task-badge badge-high">High Priority</span>
+                    </div>
+                  </div>
+                  <div class="task-actions">
+                    <button class="task-action-btn">✓</button>
+                    <button class="task-action-btn">✎</button>
+                    <button class="task-action-btn">⋮</button>
+                  </div>
+                </div>
+                <div class="task-item">
+                  <div class="task-info">
+                    <div class="task-title">Conduct user testing</div>
+                    <div class="task-details">
+                      <span>Due: Apr 10, 2025</span>
+                      <span class="task-badge badge-medium">Medium Priority</span>
+                    </div>
+                  </div>
+                  <div class="task-actions">
+                    <button class="task-action-btn">✓</button>
+                    <button class="task-action-btn">✎</button>
+                    <button class="task-action-btn">⋮</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Task Statistics</div>
+                <div class="card-actions">⋮</div>
+              </div>
+              <div class="stats-wrapper">
+                <canvas id="taskStatsChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+   <!-- Chat Tab -->
+        <div id="chat-tab" class="tab-content">
+          <div class="chat-container">
+            <div class="chat-sidebar">
+              <div class="chat-header">
+                <div class="chat-header-title">
+                  <h3>Messages</h3>
+                  <span>+</span>
+                </div>
+            <div class="chat-filters">
+                  <div class="chat-filter active">All</div>
+                  <div class="chat-filter">Unread</div>
+                  <div class="chat-filter">Important</div>
+                </div>
+                <div class="chat-search">
+                  <input type="text" placeholder="Search messages...">
+                </div>
+              </div>
+              <div class="chat-contacts">
+                <div class="chat-contact active">
+                  <div class="contact-avatar" style="background-color: #4361ee;">SA</div>
+                  <div class="contact-info">
+                    <div class="contact-name">
+                      <span>Sarah Adams</span>
+                      <span class="contact-time">10:42 AM</span>
+                    </div>
+                    <div class="contact-preview">Let me check those figures for you...</div>
+                  </div>
+                </div>
+                <div class="chat-contact">
+                  <div class="contact-avatar" style="background-color: #f72585;">MJ</div>
+                  <div class="contact-info">
+                    <div class="contact-name">
+                      <span>Michael Johnson</span>
+                      <span class="contact-time">Yesterday</span>
+                    </div>
+                    <div class="contact-preview">The latest design looks great!</div>
+                  </div>
+                </div>
+                <div class="chat-contact">
+                  <div class="contact-avatar" style="background-color: #4cc9f0;">EL</div>
+                  <div class="contact-info">
+                    <div class="contact-name">
+                      <span>Emma Lewis</span>
+                      <span class="contact-time">Yesterday</span>
+                    </div>
+                    <div class="contact-preview">When is our next meeting scheduled?</div>
+                  </div>
+                </div>
+                <div class="chat-contact">
+                  <div class="contact-avatar" style="background-color: #f8961e;">RW</div>
+                  <div class="contact-info">
+                    <div class="contact-name">
+                      <span>Robert Wilson</span>
+                      <span class="contact-time">Mar 28</span>
+                    </div>
+                    <div class="contact-preview">I've sent you the updated report.</div>
+                  </div>
+                </div>
+                <div class="chat-contact">
+                  <div class="contact-avatar" style="background-color: #3f37c9;">JM</div>
+                  <div class="contact-info">
+                    <div class="contact-name">
+                      <span>Jessica Miller</span>
+                      <span class="contact-time">Mar 27</span>
+                    </div>
+                    <div class="contact-preview">Let's sync up on the project timeline.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="chat-main">
+              <div class="chat-main-header">
+                <div class="chat-main-header-left">
+                  <div class="chat-main-avatar">SA</div>
+                  <div class="chat-main-info">
+                    <div class="chat-main-name">Sarah Adams</div>
+                    <div class="chat-main-status">Online</div>
+                  </div>
+                </div>
+                <div class="chat-main-actions">
+                  <div class="chat-main-action">📞</div>
+                  <div class="chat-main-action">📹</div>
+                  <div class="chat-main-action">⋮</div>
+                </div>
+              </div>
+              <div class="chat-messages">
+                <div class="message incoming">
+                  <div>Hi John, I need the latest updates on the project status. Can you share where we are with the timeline?</div>
+                  <div class="message-time">10:30 AM</div>
+                </div>
+                <div class="message outgoing">
+                  <div>Hey Sarah, we're currently on track with our timeline. Development phase is about 70% complete, and we should be ready for testing by April 8th.</div>
+                  <div class="message-time">10:35 AM</div>
+                </div>
+                <div class="message incoming">
+                  <div>That's great news! What about the budget? Are we still within our allocated resources?</div>
+                  <div class="message-time">10:38 AM</div>
+                </div>
+                <div class="message outgoing">
+                  <div>Yes, we're within budget. I've been monitoring expenses closely, and we have about 30% of our budget remaining, which should be sufficient for the testing and deployment phases.</div>
+                  <div class="message-time">10:40 AM</div>
+                </div>
+                <div class="message incoming">
+                  <div>Perfect. Let me check those figures for you and confirm with finance. I'll get back to you shortly.</div>
+                  <div class="message-time">10:42 AM</div>
+                </div>
+              </div>
+              <div class="chat-input">
+                <form class="chat-input-form">
+                  <div class="chat-input-actions">
+                    <div class="chat-input-action">📎</div>
+                    <div class="chat-input-action">😊</div>
+                  </div>
+                  <div class="chat-input-field">
+                    <input type="text" placeholder="Type a message...">
+                  </div>
+                  <button class="chat-input-send" type="submit">➤</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="myscript.js"></script>
+</body>
+</html>
