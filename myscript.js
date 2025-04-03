@@ -193,3 +193,14 @@
       });
     });
 
+
+// Add this at the beginning of your myscript.js file
+document.addEventListener('DOMContentLoaded', function() {
+  // Check authentication
+  const isLoggedIn = localStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn');
+  if (isLoggedIn !== 'true') {
+    window.location.href = 'login.html';
+  }
+  
+  // Rest of your existing code...
+});
